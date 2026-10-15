@@ -63,6 +63,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -126,83 +127,83 @@ fun BioSiteScreen(modifier: Modifier = Modifier) {
                 }
             }
         ) { innerPadding ->
-        LazyColumn(
-            state = listState,
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .testTag("bio_site_scroll_container"),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 16.dp,
+                    bottom = 120.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(22.dp)
+            ) {
+                // 1. HEADER / LOGO SECTION
+                item {
+                    HeaderSection()
+                }
+
+                // 2. PRESENTATION / SLOGAN SECTION
+                item {
+                    PresentationSloganSection()
+                }
+
+                // 3. MAIN ACTION BUTTONS (WHATSAPP & INSTAGRAM 3D)
+                item {
+                    MainActionButtonsSection()
+                }
+
+                // 4. CRAFTSMANSHIP & SHOWCASE CARD
+                item {
+                    CraftsmanshipShowcaseCard()
+                }
+
+                // 5. SERVICES CARDS
+                item {
+                    ServicesSection()
+                }
+
+                // 6. WHY CHOOSE REHM (+10 YEARS)
+                item {
+                    WhyChooseRehmSection()
+                }
+
+                // 7. INSTANT QUOTE SIMULATOR
+                item {
+                    QuoteCalculatorCard(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                // 8. TESTIMONIALS
+                item {
+                    TestimonialsSection()
+                }
+
+                // 9. FAQ ACCORDION
+                item {
+                    FaqSection()
+                }
+
+                // 10. FINAL CONTACT & CTAS
+                item {
+                    FinalContactSection()
+                }
+            }
+        }
+
+        // Botão WhatsApp pulsante na tela para ir direto para o contato
+        PulsingWhatsAppFab(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .testTag("bio_site_scroll_container"),
-            contentPadding = PaddingValues(
-                start = 16.dp,
-                end = 16.dp,
-                top = 16.dp,
-                bottom = 100.dp
-            ),
-            verticalArrangement = Arrangement.spacedBy(22.dp)
-        ) {
-            // 1. HEADER / LOGO SECTION
-            item {
-                HeaderSection()
+                .align(Alignment.BottomEnd)
+                .padding(bottom = if (showStickyBar) 68.dp else 0.dp),
+            onClick = {
+                openWhatsAppDirect(context, BioSiteData.WHATSAPP_URL)
             }
-
-            // 2. PRESENTATION / SLOGAN SECTION
-            item {
-                PresentationSloganSection()
-            }
-
-            // 3. MAIN ACTION BUTTONS (WHATSAPP & INSTAGRAM 3D)
-            item {
-                MainActionButtonsSection()
-            }
-
-            // 4. CRAFTSMANSHIP & SHOWCASE CARD
-            item {
-                CraftsmanshipShowcaseCard()
-            }
-
-            // 5. SERVICES CARDS
-            item {
-                ServicesSection()
-            }
-
-            // 6. WHY CHOOSE REHM (+10 YEARS)
-            item {
-                WhyChooseRehmSection()
-            }
-
-            // 7. INSTANT QUOTE SIMULATOR
-            item {
-                QuoteCalculatorCard(
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-            // 8. TESTIMONIALS
-            item {
-                TestimonialsSection()
-            }
-
-            // 9. FAQ ACCORDION
-            item {
-                FaqSection()
-            }
-
-            // 10. FINAL CONTACT & CTAS
-            item {
-                FinalContactSection()
-            }
-        }
-    }
-
-    // Botão WhatsApp pulsante na tela para ir direto para o contato
-    PulsingWhatsAppFab(
-        modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(bottom = if (showStickyBar) 68.dp else 0.dp),
-        onClick = {
-            openWhatsAppDirect(context, BioSiteData.WHATSAPP_URL)
-        }
-    )
+        )
     }
 }
 
@@ -215,7 +216,6 @@ private fun HeaderSection() {
             .padding(top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Status Badge (Live urgency)
         Surface(
             color = Color(0xFF091629),
             shape = RoundedCornerShape(20.dp),
@@ -243,7 +243,6 @@ private fun HeaderSection() {
             }
         }
 
-        // REHM 3D LOGO
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -289,7 +288,6 @@ private fun PresentationSloganSection() {
         hasGlowBorder = true,
         testTag = "presentation_slogan_card"
     ) {
-        // Slogan 1
         Text(
             text = "ESPECIALISTA EM",
             color = NeonCyan,
@@ -314,7 +312,6 @@ private fun PresentationSloganSection() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // +10 Anos de Experiência Highlight Box with Neon/Metallic Blue Glowing Border
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -374,7 +371,6 @@ private fun PresentationSloganSection() {
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                // 5 Stars
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
@@ -400,7 +396,6 @@ private fun PresentationSloganSection() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // "Qualidade e compromisso!"
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
@@ -441,7 +436,6 @@ private fun MainActionButtonsSection() {
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        // WhatsApp Button (Ícone Real do WhatsApp + Efeito Pulsante)
         ActionButton3D(
             title = "Solicitar Orçamento no WhatsApp",
             subtitle = "Resposta rápida • Falar com Bruno Santos",
@@ -453,7 +447,6 @@ private fun MainActionButtonsSection() {
             testTag = "whatsapp_main_button"
         )
 
-        // Instagram Button (Ícone Real do Instagram)
         ActionButton3D(
             title = "Acompanhar no Instagram",
             subtitle = "@bruno_santospaz • Vídeos de Obras Recentes",
@@ -510,7 +503,6 @@ private fun CraftsmanshipShowcaseCard() {
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // Showcase Photo
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -526,7 +518,6 @@ private fun CraftsmanshipShowcaseCard() {
                 contentScale = ContentScale.Crop
             )
 
-            // Overlay tag
             Surface(
                 color = Color(0xCC050810),
                 shape = RoundedCornerShape(8.dp),
@@ -557,7 +548,6 @@ private fun CraftsmanshipShowcaseCard() {
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // 3 Badges
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -1033,7 +1023,6 @@ private fun FinalContactSection() {
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            // CTAs
             ActionButton3D(
                 title = "Chamar no WhatsApp Agora",
                 subtitle = "https://wa.link/0d3d10",
@@ -1099,7 +1088,7 @@ private fun StickyBottomBar(
             .border(
                 width = 1.dp,
                 brush = Brush.horizontalGradient(listOf(Color.Transparent, NeonCyan.copy(alpha = 0.5f), Color.Transparent)),
-                shape = androidx.compose.ui.graphics.RectangleShape
+                shape = RectangleShape
             )
     ) {
         Row(
@@ -1109,7 +1098,6 @@ private fun StickyBottomBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            // Instagram Quick icon
             Box(
                 modifier = Modifier
                     .size(48.dp)
@@ -1134,7 +1122,6 @@ private fun StickyBottomBar(
                 )
             }
 
-            // WhatsApp Main Sticky Pill with real green icon and pulse glow
             Surface(
                 onClick = onWhatsAppClick,
                 shape = RoundedCornerShape(16.dp),

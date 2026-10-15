@@ -155,7 +155,6 @@ fun ActionButton3D(
 
     val combinedScale = pulseScale * pressScale
 
-    // Colors and borders tailored to authentic brands
     val (borderBrush, backgroundBrush, spotColor, badgeBg, badgeTextColor) = when (buttonType) {
         ActionButtonType.WHATSAPP -> {
             Tuple5(
@@ -265,7 +264,6 @@ fun ActionButton3D(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Real 3D Brand Icon
                 Box(
                     modifier = Modifier
                         .size(66.dp)
@@ -290,7 +288,6 @@ fun ActionButton3D(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                // Text Content
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.Center
@@ -350,7 +347,6 @@ fun ActionButton3D(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                // Action arrow pill
                 Box(
                     modifier = Modifier
                         .size(40.dp)
