@@ -1,0 +1,6 @@
+{
+  "name": "REHM Instalações",
+  "description": "Bio Site e landing page de alta conversão para especialista em portas e rodapés.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
